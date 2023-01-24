@@ -26,19 +26,19 @@ public class AdjudicationService {
     @Autowired
     MemberPlanDetailsRepository memberPlanDetailsRepository;
 
-    public List<MedicalInsurancePlan> getAllMedicalInsurancePlans() {
-        List<MedicalInsurancePlan> medicalInsurancePlanList = new ArrayList<MedicalInsurancePlan>();
-        adjudicationRepository.findAll().forEach(medicalInsurancePlan -> medicalInsurancePlanList.add(medicalInsurancePlan));
-        return medicalInsurancePlanList;
-    }
-
-    public MedicalInsurancePlan getMedicalInsurancePlanById(int id) {
-        return adjudicationRepository.findById(id).get();
-    }
-
-    public void saveOrUpdateMedicalInsurancePlan(MedicalInsurancePlan medicalInsurancePlan) {
-    	adjudicationRepository.save(medicalInsurancePlan);
-    }
+//    public List<MedicalInsurancePlan> getAllMedicalInsurancePlans() {
+//        List<MedicalInsurancePlan> medicalInsurancePlanList = new ArrayList<MedicalInsurancePlan>();
+//        adjudicationRepository.findAll().forEach(medicalInsurancePlan -> medicalInsurancePlanList.add(medicalInsurancePlan));
+//        return medicalInsurancePlanList;
+//    }
+//
+//    public MedicalInsurancePlan getMedicalInsurancePlanById(int id) {
+//        return adjudicationRepository.findById(id).get();
+//    }
+//
+//    public void saveOrUpdateMedicalInsurancePlan(MedicalInsurancePlan medicalInsurancePlan) {
+//    	adjudicationRepository.save(medicalInsurancePlan);
+//    }
     
     public void saveOrUpdateMemberDetails(MemberDetails memberDetails) {
     	memberDetailsRepository.save(memberDetails);
@@ -51,8 +51,17 @@ public class AdjudicationService {
     	memberPlanDetailsRepository.save(memberPlanDetails);
     }
     
-    public void delete(int id) {
-    	adjudicationRepository.deleteById(id);
+    public MemberPlanDetails getMemberPlanDetails(int id) {
+    	return memberPlanDetailsRepository.findById(id).get();
     }
+    
+    public List<MemberPlanDetails> getMemberPlanDetailsByMemberId(MemberDetails memberId) {
+    	
+    	return memberPlanDetailsRepository.findByMemberDetail(memberId);
+    }
+    
+//    public void delete(int id) {
+//    	adjudicationRepository.deleteById(id);
+//    }
 	
 }

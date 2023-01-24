@@ -18,45 +18,64 @@ import com.example.projectClaimAdjudication.service.AdjudicationService;
 @RestController
 public class AdjudicationController {
 
-    @Autowired
-    AdjudicationService adjudicationService;
-    
+	@Autowired
+	AdjudicationService adjudicationService;
 
-    @GetMapping("/medicalInsurancePlan")
-    private List<MedicalInsurancePlan> getAllMedicalInsurancePlan() {
-        return adjudicationService.getAllMedicalInsurancePlans();
-    }
+	/*
+	 * @GetMapping("/medicalInsurancePlan") private List<MedicalInsurancePlan>
+	 * getAllMedicalInsurancePlan() { return
+	 * adjudicationService.getAllMedicalInsurancePlans(); }
+	 * 
+	 * @GetMapping("/medicalInsurancePlan/{id}") private MedicalInsurancePlan
+	 * getMedicalInsurancePlan(@PathVariable("id") int id) { return
+	 * adjudicationService.getMedicalInsurancePlanById(id); }
+	 * 
+	 * @DeleteMapping("/medicalInsurancePlan/{id}") private void
+	 * deleteMedicalInsurancePlan(@PathVariable("id") int id) {
+	 * adjudicationService.delete(id); }
+	 * 
+	 * @PostMapping("/medicalInsurancePlan") private int
+	 * saveMedicalInsurancePlan(@RequestBody MedicalInsurancePlan
+	 * medicalInsurancePlan) {
+	 * adjudicationService.saveOrUpdateMedicalInsurancePlan(medicalInsurancePlan);
+	 * return medicalInsurancePlan.getPlanId(); }
+	 */
 
-    @GetMapping("/medicalInsurancePlan/{id}")
-    private MedicalInsurancePlan getMedicalInsurancePlan(@PathVariable("id") int id) {
-        return adjudicationService.getMedicalInsurancePlanById(id);
-    }
-
-    @DeleteMapping("/medicalInsurancePlan/{id}")
-    private void deleteMedicalInsurancePlan(@PathVariable("id") int id) {
-        adjudicationService.delete(id);
-    }
-
-    @PostMapping("/medicalInsurancePlan")
-    private int saveMedicalInsurancePlan(@RequestBody MedicalInsurancePlan medicalInsurancePlan) {
-    	adjudicationService.saveOrUpdateMedicalInsurancePlan(medicalInsurancePlan);
-        return medicalInsurancePlan.getPlanId();
-    }
-    
-    @PostMapping("/memberDetails")
-    private int saveOrUpdateMemberDetails(@RequestBody MemberDetails memberDetails) {
-    	adjudicationService.saveOrUpdateMemberDetails(memberDetails);
-        return memberDetails.getMemberId();
-    }
-    
-    @GetMapping("/memberDetails/{id}")
-    private MemberDetails getMemberDetails(@PathVariable("id") int id) {
-    	return adjudicationService.getMemberDetailsById(id);
-    }
-    
-    @PostMapping("/memberPlanDetails")
-    private int saveOrUpdateMemberPlanDetails(@RequestBody MemberPlanDetails memberPlanDetails) {
-    	adjudicationService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
-        return memberPlanDetails.getMemberPlanId();
-    }
+//	@PostMapping("/memberDetails")
+//	private int saveOrUpdateMemberDetails(@RequestBody MemberDetails memberDetails) {
+//		adjudicationService.saveOrUpdateMemberDetails(memberDetails);
+//		return memberDetails.getMemberId();
+//	}
+//
+//	@GetMapping("/memberDetails/{id}")
+//	private MemberDetails getMemberDetails(@PathVariable("id") int id) {
+//		return adjudicationService.getMemberDetailsById(id);
+//	}
+//
+//	@PostMapping("/memberPlanDetails")
+//	private int saveOrUpdateMemberPlanDetails(@RequestBody MemberPlanDetails memberPlanDetails) {
+//		adjudicationService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
+//		return memberPlanDetails.getMemberPlanId();
+//	}
+//
+//	@GetMapping("/memberPlanDetails/{id}")
+//	private MemberPlanDetails getMemberPlanDetails(@PathVariable("id") int id) {
+//
+//		return adjudicationService.getMemberPlanDetails(id);
+//	}
+//
+//	@GetMapping("/memberPlanDetailsByMemberId/{memberId}")
+//	private List<MemberPlanDetails> getMemberPlanDetailsByMember(@PathVariable("memberId") Integer memberId) {
+//		MemberDetails memberDetailsById = adjudicationService.getMemberDetailsById(memberId);
+//		return adjudicationService.getMemberPlanDetailsByMemberId(memberDetailsById);
+//	}
+//
+//	@PostMapping("/memberPlanDetails/{id}")
+//	private int saveOrUpdateMemberPlanDetailsNew(@RequestBody MemberPlanDetails memberPlanDetails,
+//			@PathVariable("id") int id) {
+//		MemberDetails memberDetailsById = adjudicationService.getMemberDetailsById(id);
+//		memberPlanDetails.setMemberDetail(memberDetailsById);
+//		adjudicationService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
+//		return memberPlanDetails.getMemberPlanId();
+//	}
 }
