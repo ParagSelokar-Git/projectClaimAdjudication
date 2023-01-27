@@ -45,7 +45,7 @@ public class MemberPlanDetails {
     @JsonIgnore
 	private MemberDetails memberDetail;
 	
-	@OneToMany(mappedBy = "memberPlanDetails")
-	private List<ClaimDetails> claimDetailsList = new ArrayList<>();
+//	@OneToMany(mappedBy = "memberPlanDetails")
+//	private List<ClaimDetails> claimDetailsList = new ArrayList<>();
 }
 

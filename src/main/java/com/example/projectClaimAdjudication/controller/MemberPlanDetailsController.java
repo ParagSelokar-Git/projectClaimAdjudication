@@ -11,38 +11,42 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectClaimAdjudication.model.MemberDetails;
 import com.example.projectClaimAdjudication.model.MemberPlanDetails;
-import com.example.projectClaimAdjudication.service.AdjudicationService;
+import com.example.projectClaimAdjudication.service.MemberDetailsService;
+import com.example.projectClaimAdjudication.service.MemberPlanDetailsService;
 
 @RestController
 public class MemberPlanDetailsController {
 
 	@Autowired
-	AdjudicationService adjudicationService;
+	MemberPlanDetailsService memberPlanDetailsService;
+	
+	@Autowired
+	MemberDetailsService memberDetailsService;
 	
 	@PostMapping("/memberPlanDetails")
 	private int saveOrUpdateMemberPlanDetails(@RequestBody MemberPlanDetails memberPlanDetails) {
-		adjudicationService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
+		memberPlanDetailsService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
 		return memberPlanDetails.getMemberPlanId();
 	}
 
 	@GetMapping("/memberPlanDetails/{id}")
 	private MemberPlanDetails getMemberPlanDetails(@PathVariable("id") int id) {
 
-		return adjudicationService.getMemberPlanDetails(id);
+		return memberPlanDetailsService.getMemberPlanDetails(id);
 	}
 
 	@GetMapping("/memberPlanDetailsByMemberId/{memberId}")
 	private List<MemberPlanDetails> getMemberPlanDetailsByMember(@PathVariable("memberId") Integer memberId) {
-		MemberDetails memberDetailsById = adjudicationService.getMemberDetailsById(memberId);
-		return adjudicationService.getMemberPlanDetailsByMemberId(memberDetailsById);
+		MemberDetails memberDetailsById = memberDetailsService.getMemberDetailsById(memberId);
+		return memberPlanDetailsService.getMemberPlanDetailsByMemberId(memberDetailsById);
 	}
 
 	@PostMapping("/memberPlanDetails/{id}")
 	private int saveOrUpdateMemberPlanDetailsNew(@RequestBody MemberPlanDetails memberPlanDetails,
 			@PathVariable("id") int id) {
-		MemberDetails memberDetailsById = adjudicationService.getMemberDetailsById(id);
+		MemberDetails memberDetailsById = memberDetailsService.getMemberDetailsById(id);
 		memberPlanDetails.setMemberDetail(memberDetailsById);
-		adjudicationService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
+		memberPlanDetailsService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
 		return memberPlanDetails.getMemberPlanId();
 	}
 }
