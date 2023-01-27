@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.projectClaimAdjudication.model.ClaimDetails;
 import com.example.projectClaimAdjudication.model.MedicalInsurancePlan;
 import com.example.projectClaimAdjudication.model.MemberDetails;
 import com.example.projectClaimAdjudication.model.MemberPlanDetails;
@@ -58,6 +59,29 @@ public class AdjudicationService {
     public List<MemberPlanDetails> getMemberPlanDetailsByMemberId(MemberDetails memberId) {
     	
     	return memberPlanDetailsRepository.findByMemberDetail(memberId);
+    }
+    
+    public MemberPlanDetails settleClaim(ClaimDetails claimDetails) {
+    	MemberPlanDetails memberPlanDetails = memberPlanDetailsRepository.findById(claimDetails.getMemberPlanId()).get();
+    	Float dft = claimDetails.getDrugCost() + claimDetails.getFee() + claimDetails.getTax();
+    	Float remainingDeductableAmount = memberPlanDetails.getRemainingDeductableAmount();
+    	Float remainingOutOfPocketAmount = memberPlanDetails.getRemainingOutOfPocketAmount();
+    	Float copay = (float) 0.0;
+    	Float planPay = (float) 0.0;
+    	if(dft <= remainingDeductableAmount) {
+    		copay = dft;
+    		memberPlanDetails.setRemainingDeductableAmount(remainingDeductableAmount - copay);
+    	} else if(dft > remainingDeductableAmount && remainingOutOfPocketAmount != 0 ) { 
+    		copay =  (float) (remainingDeductableAmount + ((dft - remainingDeductableAmount)*0.20));
+    		
+    		if(copay > remainingOutOfPocketAmount) 
+    			copay = remainingDeductableAmount + remainingOutOfPocketAmount;
+    	
+    		memberPlanDetails.setRemainingDeductableAmount((float) 0.0);
+    		memberPlanDetails.setRemainingOutOfPocketAmount(remainingOutOfPocketAmount - copay);
+    	} 
+    	planPay = dft - copay;
+    	return claimDetails;
     }
     
 //    public void delete(int id) {
