@@ -47,6 +47,7 @@ public class ClaimDetailsService {
     	planPay = dft - copay;
     	claimDetails.setCopay(copay);
     	claimDetails.setPlanPay(planPay);
+    	
 		claimDetailsRepository.save(claimDetails);
 	}
 
