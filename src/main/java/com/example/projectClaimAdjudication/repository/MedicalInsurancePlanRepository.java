@@ -9,4 +9,5 @@ public interface MedicalInsurancePlanRepository extends JpaRepository<MedicalIns
 
 	@Query(value="select speciality from medical_insurance_plan where plan_id=?1",nativeQuery=true)
 	public Float findSpecialityByPlanId(Integer planId);
+	
 }
