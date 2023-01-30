@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.projectClaimAdjudication.model.ClaimDetails;
 import com.example.projectClaimAdjudication.model.MedicalInsurancePlan;
 import com.example.projectClaimAdjudication.model.MemberDetails;
 import com.example.projectClaimAdjudication.model.MemberPlanDetails;
@@ -78,4 +79,11 @@ public class AdjudicationController {
 //		adjudicationService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
 //		return memberPlanDetails.getMemberPlanId();
 //	}
+	
+	@PostMapping("/claimDetails")
+	private int saveMedicalInsurancePlan(@RequestBody ClaimDetails claimDetails) {
+		MemberPlanDetails memberPlanDetails = adjudicationService.settleClaim(claimDetails);
+		Float remainingOutOfPocketAmount = memberPlanDetails.g
+		return medicalInsurancePlan.getPlanId();
+	}
 }

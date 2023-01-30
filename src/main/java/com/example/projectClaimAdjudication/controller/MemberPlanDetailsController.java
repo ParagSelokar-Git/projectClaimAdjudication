@@ -11,42 +11,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectClaimAdjudication.model.MemberDetails;
 import com.example.projectClaimAdjudication.model.MemberPlanDetails;
-import com.example.projectClaimAdjudication.service.MemberDetailsService;
-import com.example.projectClaimAdjudication.service.MemberPlanDetailsService;
+import com.example.projectClaimAdjudication.service.AdjudicationService;
 
 @RestController
 public class MemberPlanDetailsController {
 
 	@Autowired
-	MemberPlanDetailsService memberPlanDetailsService;
-	
-	@Autowired
-	MemberDetailsService memberDetailsService;
+	AdjudicationService adjudicationService;
 	
 	@PostMapping("/memberPlanDetails")
 	private int saveOrUpdateMemberPlanDetails(@RequestBody MemberPlanDetails memberPlanDetails) {
-		memberPlanDetailsService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
+		adjudicationService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
 		return memberPlanDetails.getMemberPlanId();
 	}
 
 	@GetMapping("/memberPlanDetails/{id}")
 	private MemberPlanDetails getMemberPlanDetails(@PathVariable("id") int id) {
 
-		return memberPlanDetailsService.getMemberPlanDetails(id);
+		return adjudicationService.getMemberPlanDetails(id);
 	}
 
 	@GetMapping("/memberPlanDetailsByMemberId/{memberId}")
 	private List<MemberPlanDetails> getMemberPlanDetailsByMember(@PathVariable("memberId") Integer memberId) {
-		MemberDetails memberDetailsById = memberDetailsService.getMemberDetailsById(memberId);
-		return memberPlanDetailsService.getMemberPlanDetailsByMemberId(memberDetailsById);
+		MemberDetails memberDetailsById = adjudicationService.getMemberDetailsById(memberId);
+		return adjudicationService.getMemberPlanDetailsByMemberId(memberDetailsById);
 	}
 
 	@PostMapping("/memberPlanDetails/{id}")
 	private int saveOrUpdateMemberPlanDetailsNew(@RequestBody MemberPlanDetails memberPlanDetails,
 			@PathVariable("id") int id) {
-		MemberDetails memberDetailsById = memberDetailsService.getMemberDetailsById(id);
+		MemberDetails memberDetailsById = adjudicationService.getMemberDetailsById(id);
 		memberPlanDetails.setMemberDetail(memberDetailsById);
-		memberPlanDetailsService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
+		adjudicationService.saveOrUpdateMemberPlanDetails(memberPlanDetails);
 		return memberPlanDetails.getMemberPlanId();
 	}
 }

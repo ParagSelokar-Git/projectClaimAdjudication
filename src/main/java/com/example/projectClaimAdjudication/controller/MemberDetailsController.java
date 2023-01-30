@@ -8,22 +8,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.projectClaimAdjudication.model.MemberDetails;
-import com.example.projectClaimAdjudication.service.MemberDetailsService;
+import com.example.projectClaimAdjudication.service.AdjudicationService;
 
 @RestController
 public class MemberDetailsController {
 
 	@Autowired
-	MemberDetailsService memberDetailsService;
+	AdjudicationService adjudicationService;
 	
 	@PostMapping("/memberDetails")
 	private int saveOrUpdateMemberDetails(@RequestBody MemberDetails memberDetails) {
-		memberDetailsService.saveOrUpdateMemberDetails(memberDetails);
+		adjudicationService.saveOrUpdateMemberDetails(memberDetails);
 		return memberDetails.getMemberId();
 	}
 
 	@GetMapping("/memberDetails/{id}")
 	private MemberDetails getMemberDetails(@PathVariable("id") int id) {
-		return memberDetailsService.getMemberDetailsById(id);
+		return adjudicationService.getMemberDetailsById(id);
 	}
 }
